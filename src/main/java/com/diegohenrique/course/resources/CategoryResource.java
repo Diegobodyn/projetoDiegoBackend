@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.diegohenrique.course.dto.CategoryDTO;
 import com.diegohenrique.course.entities.Category;
 import com.diegohenrique.course.services.CategoryService;
 
@@ -26,15 +27,15 @@ public class CategoryResource {
 	private CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll(){
-		List<Category> list = service.findAll();
+	public ResponseEntity<List<CategoryDTO>> findAll(){
+		List<CategoryDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}" )
-	public ResponseEntity<Category> findById(@PathVariable  Long id){
-		Category obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<CategoryDTO> findById(@PathVariable  Long id){
+		CategoryDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
@@ -52,7 +53,7 @@ public class CategoryResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
+	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

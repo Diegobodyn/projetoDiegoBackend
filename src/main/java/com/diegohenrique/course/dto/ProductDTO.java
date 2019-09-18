@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.diegohenrique.course.entities.Product;
 
-public class ProdutoDTO implements Serializable {
+public class ProductDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -13,11 +13,11 @@ public class ProdutoDTO implements Serializable {
 	private Double price;
 	private String imgUrl;
 	
-	public ProdutoDTO(){
+	public ProductDTO(){
 		
 	}
 
-	public ProdutoDTO(Long id, String name, String description, Double price, String imgUrl) {
+	public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,7 +27,7 @@ public class ProdutoDTO implements Serializable {
 	}
 
 	
-	public void ProductDTO(Product entity) {
+	public ProductDTO(Product entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();

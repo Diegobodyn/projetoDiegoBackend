@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.diegohenrique.course.dto.ProductDTO;
 import com.diegohenrique.course.entities.Product;
 import com.diegohenrique.course.services.ProductService;
 
@@ -26,15 +27,15 @@ public class ProductResource {
 	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Product>> findAll(){
-		List<Product> list = service.findAll();
+	public ResponseEntity<List<ProductDTO>> findAll(){
+		List<ProductDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}" )
-	public ResponseEntity<Product> findById(@PathVariable  Long id){
-		Product obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<ProductDTO> findById(@PathVariable  Long id){
+		ProductDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
@@ -52,7 +53,7 @@ public class ProductResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product dto){
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
