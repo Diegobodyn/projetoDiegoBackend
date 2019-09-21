@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.diegohenrique.course.entities.pk.OrderItemPK;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -34,7 +33,6 @@ public class OrderItem implements Serializable {
 	}
 	
 	
-	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
