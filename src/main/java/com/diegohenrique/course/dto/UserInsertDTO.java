@@ -28,6 +28,8 @@ public class UserInsertDTO implements Serializable {
 	@NotEmpty(message = "Can't be Empty")
 	@Length(min =8, max= 20, message = "length must be between 5 and 80")
 	private String phone;
+	
+	@NotEmpty(message = "can't be empty")
     private String password;
     
     public UserInsertDTO() {
