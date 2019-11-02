@@ -35,9 +35,15 @@ public class CategoryService {
 		return new CategoryDTO(entity);
 	}
 	
-	// Diego alone!  ---------------------
-	public Category insert(Category obj) {
-		return repository.save(obj);
+	/*// Diego alone!  ---------------------
+	public CategoryDTO insert(CategoryDTO dto) {
+		return repository.save(dto);
+	}*/
+	
+	public CategoryDTO insert(CategoryDTO dto) {
+		Category entity = dto.toEntity();
+		entity= repository.save(entity);
+		return new CategoryDTO(entity);
 		
 	}
 	
@@ -68,5 +74,6 @@ public class CategoryService {
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());		
 	
-	} 
+	}
+
 }
