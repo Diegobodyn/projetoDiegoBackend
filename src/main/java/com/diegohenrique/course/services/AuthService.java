@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.diegohenrique.course.dto.CredentialsDTO;
 import com.diegohenrique.course.dto.TokenDTO;
+import com.diegohenrique.course.entities.Order;
 import com.diegohenrique.course.entities.User;
 import com.diegohenrique.course.repositories.UserRepository;
 import com.diegohenrique.course.security.JWTUtil;
@@ -55,6 +56,13 @@ public class AuthService {
 	public void validadeSelfOrAdmin(Long userId) {
 		User user = authenticated();
 		if (user == null ||(!user.getId().equals(userId)) && !user.hasRole("ROLE_ADMIN")) {
+			throw new JWTAuthorizationException("Access denied");
+		}
+	}
+	
+	public void validadeOwnOrderOrAdmin(Order order) {
+		User user = authenticated();
+		if (user == null ||(!user.getId().equals(order.getClient().getId())) && !user.hasRole("ROLE_ADMIN")) {
 			throw new JWTAuthorizationException("Access denied");
 		}
 	}
