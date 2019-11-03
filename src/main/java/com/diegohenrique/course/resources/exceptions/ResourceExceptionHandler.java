@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.diegohenrique.course.services.exceptions.DatabaseException;
 import com.diegohenrique.course.services.exceptions.JWTAuthenticationException;
 import com.diegohenrique.course.services.exceptions.JWTAuthorizationException;
+import com.diegohenrique.course.services.exceptions.ParamFormatException;
 import com.diegohenrique.course.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -60,6 +61,14 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandartError> jwtAuthorization(JWTAuthorizationException e, HttpServletRequest request){
         String error = "Authorization error";
         HttpStatus status = HttpStatus.FORBIDDEN;
+        StandartError err =  new StandartError(Instant.now(), status.value() , error, e.getMessage() , request.getRequestURI());
+        return ResponseEntity.status(status).body(err); 
+	}
+	
+	@ExceptionHandler(ParamFormatException.class)
+	public ResponseEntity<StandartError> paramFormat(ParamFormatException e, HttpServletRequest request){
+        String error = "Format error";
+        HttpStatus status = HttpStatus.BAD_REQUEST ;
         StandartError err =  new StandartError(Instant.now(), status.value() , error, e.getMessage() , request.getRequestURI());
         return ResponseEntity.status(status).body(err); 
 	}
