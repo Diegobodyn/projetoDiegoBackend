@@ -96,4 +96,10 @@ public class ProductService {
 
 	}
 
+	public Page<ProductDTO> findByCategoryPaged(Long categoryId, Pageable pageable) {
+		Category category = categoryRepository.getOne(categoryId);
+		Page<Product> products = repository.findByCategory(category,pageable);
+		return products.map(e -> new ProductDTO(e));
+	}
+
 }
