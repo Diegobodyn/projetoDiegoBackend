@@ -15,6 +15,7 @@ import com.diegohenrique.course.entities.Order;
 import com.diegohenrique.course.entities.OrderItem;
 import com.diegohenrique.course.entities.User;
 import com.diegohenrique.course.repositories.OrderRepository;
+import com.diegohenrique.course.repositories.UserRepository;
 import com.diegohenrique.course.services.exceptions.ResourceNotFoundException;
 
 
@@ -27,6 +28,10 @@ public class OrderService {
 
 	@Autowired
 	private AuthService authService;
+	
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	
 	
@@ -54,5 +59,12 @@ public class OrderService {
 		authService.validadeOwnOrderOrAdmin(order);
 		Set<OrderItem> set = order.getItems();
 		return set.stream().map(e -> new OrderItemDTO(e)).collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findByClientId(Long clientId) {
+		User client = userRepository.getOne(clientId);
+		List<Order> list = repository.findByClient(client);
+		return list.stream().map(e -> new OrderDTO(e)).collect(Collectors.toList());
 	}
 }
