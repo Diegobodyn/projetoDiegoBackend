@@ -1,6 +1,7 @@
 package com.diegohenrique.course.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.diegohenrique.course.dto.CategoryDTO;
 import com.diegohenrique.course.dto.ProductCategoriesDTO;
 import com.diegohenrique.course.dto.ProductDTO;
 import com.diegohenrique.course.services.ProductService;
@@ -59,10 +61,6 @@ public class ProductResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	
-	
-	
-	
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
@@ -92,4 +90,25 @@ public class ProductResource {
 		return ResponseEntity.ok().body(newDto);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PutMapping(value = "/{id}/addcategory")
+	public ResponseEntity<Void> addCategory(@PathVariable Long id, @RequestBody CategoryDTO dto ) {
+		service.addCategory(id, dto);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PutMapping(value = "/{id}/removecategory")
+	public ResponseEntity<Void> removeCategory(@PathVariable Long id, @RequestBody CategoryDTO dto ) {
+		service.removeCategory(id, dto);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PutMapping(value = "/{id}/setcategories")
+	public ResponseEntity<Void> setCategory(@PathVariable Long id, @RequestBody List<CategoryDTO> dto ) {
+		service.setCategories(id, dto);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
